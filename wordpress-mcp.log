@@ -1,0 +1,240 @@
+2025-12-03T18:39:35.505Z [INFO] [SYSTEM] Using native fetch API
+2025-12-03T18:39:35.508Z [INFO] [PROXY] Starting WordPress MCP Proxy with enhanced authentication
+2025-12-03T18:39:35.512Z [INFO] [PROXY] MCP server connected to transport successfully
+2025-12-03T18:39:35.520Z [INFO] [INIT] 📩 Client Initialize Request received
+2025-12-03T18:39:35.521Z [DEBUG] [INIT] Initialize request details:
+{
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "mcp",
+      "version": "0.1.0"
+    }
+  }
+}
+2025-12-03T18:39:35.522Z [INFO] [INIT] 🔄 Initializing WordPress connection with client parameters
+2025-12-03T18:39:35.524Z [INFO] [TRANSPORT_DETECT] 🔍 Starting transport detection and WordPress API initialization...
+2025-12-03T18:39:35.525Z [INFO] [TRANSPORT_DETECT] 📋 Added proxy information to clientInfo
+{
+  "originalClient": "mcp",
+  "proxyName": "@automattic/mcp-wordpress-remote",
+  "proxyVersion": "0.2.18"
+}
+2025-12-03T18:39:35.527Z [INFO] [TRANSPORT_DETECT] 📡 Attempting JSON-RPC transport...
+2025-12-03T18:39:35.529Z [DEBUG] [SESSION] MCP JSON-RPC message being sent to WordPress:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "original_mcp_id": "none",
+  "session_id": "not-yet-obtained"
+}
+2025-12-03T18:39:35.530Z [INFO] [TRANSPORT_DETECT] Sending initialization message via JSON-RPC:
+{
+  "method": "initialize",
+  "id": 1,
+  "jsonrpc": "2.0",
+  "hasParams": true
+}
+2025-12-03T18:39:35.532Z [DEBUG] [TRANSPORT_DETECT] Complete JSON-RPC init message:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "mcp",
+      "version": "0.1.0",
+      "proxied": {
+        "name": "@automattic/mcp-wordpress-remote",
+        "version": "0.2.18"
+      }
+    },
+    "_proxy_request_id": 1
+  }
+}
+2025-12-03T18:39:35.533Z [INFO] [API] Request method: initialize (JSON-RPC)
+2025-12-03T18:39:35.534Z [DEBUG] [API] JSON-RPC message: {"jsonrpc":"2.0","method":"initialize","id":1,"params":{"protocolVersion":"2025-11-25","capabilities":{},"clientInfo":{"name":"mcp","version":"0.1.0","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.18"}},"_proxy_request_id":1}}
+2025-12-03T18:39:35.535Z [INFO] [AUTH] Using WordPress Basic Auth for method: initialize
+2025-12-03T18:39:35.535Z [DEBUG] [AUTH] Username length: 16
+2025-12-03T18:39:35.536Z [DEBUG] [AUTH] Password length: 29
+2025-12-03T18:39:35.537Z [DEBUG] [AUTH] Auth header length: 64
+2025-12-03T18:39:35.538Z [DEBUG] [API] Environment: development
+2025-12-03T18:39:35.538Z [DEBUG] [API] Base API URL: https://www.nonirvanadigital.com
+2025-12-03T18:39:35.539Z [DEBUG] [API] Final requesting URL: https://www.nonirvanadigital.com/?rest_route=/wp/v2/wpmcp
+2025-12-03T18:39:35.540Z [DEBUG] [API] Using Authorization header for authentication
+2025-12-03T18:39:35.541Z [INFO] [API] Sending request to WordPress API...
+2025-12-03T18:39:35.542Z [DEBUG] [API] Request URL: https://www.nonirvanadigital.com/?rest_route=/wp/v2/wpmcp
+2025-12-03T18:39:35.542Z [DEBUG] [API] Request method: POST
+2025-12-03T18:39:37.366Z [DEBUG] [API] Response status: 500
+2025-12-03T18:39:37.552Z [ERROR] [API] API error response: {"code":"internal_server_error","message":"<p>There has been a critical error on this website.<\/p><p><a href=\"https:\/\/wordpress.org\/documentation\/article\/faq-troubleshooting\/\">Learn more about troubleshooting WordPress.<\/a><\/p>","data":{"status":500,"error":{"type":1,"message":"Uncaught InvalidArgumentException: The required field must be an array. in \/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Core\/RegisterMcpTool.php:312\nStack trace:\n#0 \/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Core\/RegisterMcpTool.php(239): Automattic\\WordpressMcp\\Core\\RegisterMcpTool->validate_input_schema()\n#1 \/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Core\/RegisterMcpTool.php(38): Automattic\\WordpressMcp\\Core\\RegisterMcpTool->validate_arguments()\n#2 \/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Tools\/McpRestApiCrud.php(46): Automattic\\WordpressMcp\\Core\\RegisterMcpTool->__construct()\n#3 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(324): Automattic\\WordpressMcp\\Tools\\McpRestApiCrud->register_tools()\n#4 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(348): WP_Hook->apply_filters()\n#5 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/plugin.php(517): WP_Hook->do_action()\n#6 \/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Core\/WpMcp.php(155): do_action()\n#7 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(324): Automattic\\WordpressMcp\\Core\\WpMcp->wordpress_mcp_init()\n#8 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(348): WP_Hook->apply_filters()\n#9 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/plugin.php(517): WP_Hook->do_action()\n#10 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/rest-api.php(628): do_action()\n#11 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/rest-api.php(452): rest_get_server()\n#12 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(324): rest_api_loaded()\n#13 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(348): WP_Hook->apply_filters()\n#14 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/plugin.php(565): WP_Hook->do_action()\n#15 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp.php(418): do_action_ref_array()\n#16 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp.php(818): WP->parse_request()\n#17 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/functions.php(1342): WP->main()\n#18 \/home\/hc4ss4d3haht\/public_html\/wp-blog-header.php(16): wp()\n#19 \/home\/hc4ss4d3haht\/public_html\/index.php(17): require('\/home\/hc4ss4d3h...')\n#20 {main}\n  thrown","file":"\/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Core\/RegisterMcpTool.php","line":312}},"additional_errors":[]}
+2025-12-03T18:39:37.553Z [WARN] [TRANSPORT_DETECT] ⚠️  JSON-RPC transport failed, trying simple transport...
+2025-12-03T18:39:37.554Z [DEBUG] [TRANSPORT_DETECT] JSON-RPC error details:
+{
+  "name": "APIError",
+  "statusCode": 500,
+  "endpoint": "https://www.nonirvanadigital.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"internal_server_error\",\"message\":\"<p>There has been a critical error on this website.<\\/p><p><a href=\\\"https:\\/\\/wordpress.org\\/documentation\\/article\\/faq-troubleshooting\\/\\\">Learn more about troubleshooting WordPress.<\\/a><\\/p>\",\"data\":{\"status\":500,\"error\":{\"type\":1,\"message\":\"Uncaught InvalidArgumentException: The required field must be an array. in \\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Core\\/RegisterMcpTool.php:312\\nStack trace:\\n#0 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Core\\/RegisterMcpTool.php(239): Automattic\\\\WordpressMcp\\\\Core\\\\RegisterMcpTool->validate_input_schema()\\n#1 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Core\\/RegisterMcpTool.php(38): Automattic\\\\WordpressMcp\\\\Core\\\\RegisterMcpTool->validate_arguments()\\n#2 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Tools\\/McpRestApiCrud.php(46): Automattic\\\\WordpressMcp\\\\Core\\\\RegisterMcpTool->__construct()\\n#3 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(324): Automattic\\\\WordpressMcp\\\\Tools\\\\McpRestApiCrud->register_tools()\\n#4 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(348): WP_Hook->apply_filters()\\n#5 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/plugin.php(517): WP_Hook->do_action()\\n#6 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Core\\/WpMcp.php(155): do_action()\\n#7 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(324): Automattic\\\\WordpressMcp\\\\Core\\\\WpMcp->wordpress_mcp_init()\\n#8 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(348): WP_Hook->apply_filters()\\n#9 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/plugin.php(517): WP_Hook->do_action()\\n#10 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/rest-api.php(628): do_action()\\n#11 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/rest-api.php(452): rest_get_server()\\n#12 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(324): rest_api_loaded()\\n#13 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(348): WP_Hook->apply_filters()\\n#14 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/plugin.php(565): WP_Hook->do_action()\\n#15 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp.php(418): do_action_ref_array()\\n#16 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp.php(818): WP->parse_request()\\n#17 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/functions.php(1342): WP->main()\\n#18 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-blog-header.php(16): wp()\\n#19 \\/home\\/hc4ss4d3haht\\/public_html\\/index.php(17): require('\\/home\\/hc4ss4d3h...')\\n#20 {main}\\n  thrown\",\"file\":\"\\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Core\\/RegisterMcpTool.php\",\"line\":312}},\"additional_errors\":[]}"
+}
+2025-12-03T18:39:37.555Z [INFO] [TRANSPORT_DETECT] Sending initialization message via Simple transport:
+{
+  "method": "initialize",
+  "hasParams": true
+}
+2025-12-03T18:39:37.556Z [DEBUG] [TRANSPORT_DETECT] Complete Simple init message:
+{
+  "method": "initialize",
+  "protocolVersion": "2025-11-25",
+  "capabilities": {},
+  "clientInfo": {
+    "name": "mcp",
+    "version": "0.1.0",
+    "proxied": {
+      "name": "@automattic/mcp-wordpress-remote",
+      "version": "0.2.18"
+    }
+  }
+}
+2025-12-03T18:39:37.556Z [INFO] [API] Request method: initialize (Simple)
+2025-12-03T18:39:37.557Z [DEBUG] [API] Simple request: {"method":"initialize","protocolVersion":"2025-11-25","capabilities":{},"clientInfo":{"name":"mcp","version":"0.1.0","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.18"}}}
+2025-12-03T18:39:37.557Z [INFO] [AUTH] Using WordPress Basic Auth for method: initialize
+2025-12-03T18:39:37.558Z [DEBUG] [AUTH] Username length: 16
+2025-12-03T18:39:37.559Z [DEBUG] [AUTH] Password length: 29
+2025-12-03T18:39:37.559Z [DEBUG] [AUTH] Auth header length: 64
+2025-12-03T18:39:37.560Z [DEBUG] [API] Environment: development
+2025-12-03T18:39:37.562Z [DEBUG] [API] Base API URL: https://www.nonirvanadigital.com
+2025-12-03T18:39:37.563Z [DEBUG] [API] Final requesting URL: https://www.nonirvanadigital.com/?rest_route=/wp/v2/wpmcp
+2025-12-03T18:39:37.563Z [DEBUG] [API] Using Authorization header for authentication
+2025-12-03T18:39:37.564Z [INFO] [API] Sending request to WordPress API...
+2025-12-03T18:39:37.594Z [DEBUG] [API] Request URL: https://www.nonirvanadigital.com/?rest_route=/wp/v2/wpmcp
+2025-12-03T18:39:37.595Z [DEBUG] [API] Request method: POST
+2025-12-03T18:48:05.658Z [INFO] [SYSTEM] Using native fetch API
+2025-12-03T18:48:05.666Z [INFO] [PROXY] Starting WordPress MCP Proxy with enhanced authentication
+2025-12-03T18:48:05.673Z [INFO] [PROXY] MCP server connected to transport successfully
+2025-12-03T18:48:05.689Z [INFO] [INIT] 📩 Client Initialize Request received
+2025-12-03T18:48:05.691Z [DEBUG] [INIT] Initialize request details:
+{
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "mcp",
+      "version": "0.1.0"
+    }
+  }
+}
+2025-12-03T18:48:05.692Z [INFO] [INIT] 🔄 Initializing WordPress connection with client parameters
+2025-12-03T18:48:05.698Z [INFO] [TRANSPORT_DETECT] 🔍 Starting transport detection and WordPress API initialization...
+2025-12-03T18:48:05.699Z [INFO] [TRANSPORT_DETECT] 📋 Added proxy information to clientInfo
+{
+  "originalClient": "mcp",
+  "proxyName": "@automattic/mcp-wordpress-remote",
+  "proxyVersion": "0.2.18"
+}
+2025-12-03T18:48:05.704Z [INFO] [TRANSPORT_DETECT] 📡 Attempting JSON-RPC transport...
+2025-12-03T18:48:05.706Z [DEBUG] [SESSION] MCP JSON-RPC message being sent to WordPress:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "original_mcp_id": "none",
+  "session_id": "not-yet-obtained"
+}
+2025-12-03T18:48:05.707Z [INFO] [TRANSPORT_DETECT] Sending initialization message via JSON-RPC:
+{
+  "method": "initialize",
+  "id": 1,
+  "jsonrpc": "2.0",
+  "hasParams": true
+}
+2025-12-03T18:48:05.709Z [DEBUG] [TRANSPORT_DETECT] Complete JSON-RPC init message:
+{
+  "jsonrpc": "2.0",
+  "method": "initialize",
+  "id": 1,
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {},
+    "clientInfo": {
+      "name": "mcp",
+      "version": "0.1.0",
+      "proxied": {
+        "name": "@automattic/mcp-wordpress-remote",
+        "version": "0.2.18"
+      }
+    },
+    "_proxy_request_id": 1
+  }
+}
+2025-12-03T18:48:05.714Z [INFO] [API] Request method: initialize (JSON-RPC)
+2025-12-03T18:48:05.716Z [DEBUG] [API] JSON-RPC message: {"jsonrpc":"2.0","method":"initialize","id":1,"params":{"protocolVersion":"2025-11-25","capabilities":{},"clientInfo":{"name":"mcp","version":"0.1.0","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.18"}},"_proxy_request_id":1}}
+2025-12-03T18:48:05.720Z [INFO] [AUTH] Using WordPress Basic Auth for method: initialize
+2025-12-03T18:48:05.722Z [DEBUG] [AUTH] Username length: 16
+2025-12-03T18:48:05.723Z [DEBUG] [AUTH] Password length: 29
+2025-12-03T18:48:05.725Z [DEBUG] [AUTH] Auth header length: 64
+2025-12-03T18:48:05.726Z [DEBUG] [API] Environment: development
+2025-12-03T18:48:05.730Z [DEBUG] [API] Base API URL: https://www.nonirvanadigital.com
+2025-12-03T18:48:05.733Z [DEBUG] [API] Final requesting URL: https://www.nonirvanadigital.com/?rest_route=/wp/v2/wpmcp
+2025-12-03T18:48:05.736Z [DEBUG] [API] Using Authorization header for authentication
+2025-12-03T18:48:05.739Z [INFO] [API] Sending request to WordPress API...
+2025-12-03T18:48:05.740Z [DEBUG] [API] Request URL: https://www.nonirvanadigital.com/?rest_route=/wp/v2/wpmcp
+2025-12-03T18:48:05.741Z [DEBUG] [API] Request method: POST
+2025-12-03T18:48:07.641Z [DEBUG] [API] Response status: 500
+2025-12-03T18:48:07.659Z [ERROR] [API] API error response: {"code":"internal_server_error","message":"<p>There has been a critical error on this website.<\/p><p><a href=\"https:\/\/wordpress.org\/documentation\/article\/faq-troubleshooting\/\">Learn more about troubleshooting WordPress.<\/a><\/p>","data":{"status":500,"error":{"type":1,"message":"Uncaught InvalidArgumentException: The required field must be an array. in \/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Core\/RegisterMcpTool.php:312\nStack trace:\n#0 \/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Core\/RegisterMcpTool.php(239): Automattic\\WordpressMcp\\Core\\RegisterMcpTool->validate_input_schema()\n#1 \/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Core\/RegisterMcpTool.php(38): Automattic\\WordpressMcp\\Core\\RegisterMcpTool->validate_arguments()\n#2 \/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Tools\/McpRestApiCrud.php(46): Automattic\\WordpressMcp\\Core\\RegisterMcpTool->__construct()\n#3 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(324): Automattic\\WordpressMcp\\Tools\\McpRestApiCrud->register_tools()\n#4 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(348): WP_Hook->apply_filters()\n#5 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/plugin.php(517): WP_Hook->do_action()\n#6 \/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Core\/WpMcp.php(155): do_action()\n#7 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(324): Automattic\\WordpressMcp\\Core\\WpMcp->wordpress_mcp_init()\n#8 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(348): WP_Hook->apply_filters()\n#9 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/plugin.php(517): WP_Hook->do_action()\n#10 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/rest-api.php(628): do_action()\n#11 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/rest-api.php(452): rest_get_server()\n#12 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(324): rest_api_loaded()\n#13 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(348): WP_Hook->apply_filters()\n#14 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/plugin.php(565): WP_Hook->do_action()\n#15 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp.php(418): do_action_ref_array()\n#16 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp.php(818): WP->parse_request()\n#17 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/functions.php(1342): WP->main()\n#18 \/home\/hc4ss4d3haht\/public_html\/wp-blog-header.php(16): wp()\n#19 \/home\/hc4ss4d3haht\/public_html\/index.php(17): require('\/home\/hc4ss4d3h...')\n#20 {main}\n  thrown","file":"\/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Core\/RegisterMcpTool.php","line":312}},"additional_errors":[]}
+2025-12-03T18:48:07.662Z [WARN] [TRANSPORT_DETECT] ⚠️  JSON-RPC transport failed, trying simple transport...
+2025-12-03T18:48:07.664Z [DEBUG] [TRANSPORT_DETECT] JSON-RPC error details:
+{
+  "name": "APIError",
+  "statusCode": 500,
+  "endpoint": "https://www.nonirvanadigital.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"internal_server_error\",\"message\":\"<p>There has been a critical error on this website.<\\/p><p><a href=\\\"https:\\/\\/wordpress.org\\/documentation\\/article\\/faq-troubleshooting\\/\\\">Learn more about troubleshooting WordPress.<\\/a><\\/p>\",\"data\":{\"status\":500,\"error\":{\"type\":1,\"message\":\"Uncaught InvalidArgumentException: The required field must be an array. in \\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Core\\/RegisterMcpTool.php:312\\nStack trace:\\n#0 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Core\\/RegisterMcpTool.php(239): Automattic\\\\WordpressMcp\\\\Core\\\\RegisterMcpTool->validate_input_schema()\\n#1 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Core\\/RegisterMcpTool.php(38): Automattic\\\\WordpressMcp\\\\Core\\\\RegisterMcpTool->validate_arguments()\\n#2 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Tools\\/McpRestApiCrud.php(46): Automattic\\\\WordpressMcp\\\\Core\\\\RegisterMcpTool->__construct()\\n#3 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(324): Automattic\\\\WordpressMcp\\\\Tools\\\\McpRestApiCrud->register_tools()\\n#4 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(348): WP_Hook->apply_filters()\\n#5 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/plugin.php(517): WP_Hook->do_action()\\n#6 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Core\\/WpMcp.php(155): do_action()\\n#7 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(324): Automattic\\\\WordpressMcp\\\\Core\\\\WpMcp->wordpress_mcp_init()\\n#8 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(348): WP_Hook->apply_filters()\\n#9 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/plugin.php(517): WP_Hook->do_action()\\n#10 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/rest-api.php(628): do_action()\\n#11 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/rest-api.php(452): rest_get_server()\\n#12 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(324): rest_api_loaded()\\n#13 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(348): WP_Hook->apply_filters()\\n#14 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/plugin.php(565): WP_Hook->do_action()\\n#15 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp.php(418): do_action_ref_array()\\n#16 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp.php(818): WP->parse_request()\\n#17 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/functions.php(1342): WP->main()\\n#18 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-blog-header.php(16): wp()\\n#19 \\/home\\/hc4ss4d3haht\\/public_html\\/index.php(17): require('\\/home\\/hc4ss4d3h...')\\n#20 {main}\\n  thrown\",\"file\":\"\\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Core\\/RegisterMcpTool.php\",\"line\":312}},\"additional_errors\":[]}"
+}
+2025-12-03T18:48:07.667Z [INFO] [TRANSPORT_DETECT] Sending initialization message via Simple transport:
+{
+  "method": "initialize",
+  "hasParams": true
+}
+2025-12-03T18:48:07.670Z [DEBUG] [TRANSPORT_DETECT] Complete Simple init message:
+{
+  "method": "initialize",
+  "protocolVersion": "2025-11-25",
+  "capabilities": {},
+  "clientInfo": {
+    "name": "mcp",
+    "version": "0.1.0",
+    "proxied": {
+      "name": "@automattic/mcp-wordpress-remote",
+      "version": "0.2.18"
+    }
+  }
+}
+2025-12-03T18:48:07.672Z [INFO] [API] Request method: initialize (Simple)
+2025-12-03T18:48:07.673Z [DEBUG] [API] Simple request: {"method":"initialize","protocolVersion":"2025-11-25","capabilities":{},"clientInfo":{"name":"mcp","version":"0.1.0","proxied":{"name":"@automattic/mcp-wordpress-remote","version":"0.2.18"}}}
+2025-12-03T18:48:07.674Z [INFO] [AUTH] Using WordPress Basic Auth for method: initialize
+2025-12-03T18:48:07.675Z [DEBUG] [AUTH] Username length: 16
+2025-12-03T18:48:07.677Z [DEBUG] [AUTH] Password length: 29
+2025-12-03T18:48:07.679Z [DEBUG] [AUTH] Auth header length: 64
+2025-12-03T18:48:07.680Z [DEBUG] [API] Environment: development
+2025-12-03T18:48:07.682Z [DEBUG] [API] Base API URL: https://www.nonirvanadigital.com
+2025-12-03T18:48:07.683Z [DEBUG] [API] Final requesting URL: https://www.nonirvanadigital.com/?rest_route=/wp/v2/wpmcp
+2025-12-03T18:48:07.685Z [DEBUG] [API] Using Authorization header for authentication
+2025-12-03T18:48:07.686Z [INFO] [API] Sending request to WordPress API...
+2025-12-03T18:48:07.689Z [DEBUG] [API] Request URL: https://www.nonirvanadigital.com/?rest_route=/wp/v2/wpmcp
+2025-12-03T18:48:07.692Z [DEBUG] [API] Request method: POST
+2025-12-03T18:48:08.907Z [DEBUG] [API] Response status: 500
+2025-12-03T18:48:08.935Z [ERROR] [API] API error response: {"code":"internal_server_error","message":"<p>There has been a critical error on this website.<\/p><p><a href=\"https:\/\/wordpress.org\/documentation\/article\/faq-troubleshooting\/\">Learn more about troubleshooting WordPress.<\/a><\/p>","data":{"status":500,"error":{"type":1,"message":"Uncaught InvalidArgumentException: The required field must be an array. in \/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Core\/RegisterMcpTool.php:312\nStack trace:\n#0 \/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Core\/RegisterMcpTool.php(239): Automattic\\WordpressMcp\\Core\\RegisterMcpTool->validate_input_schema()\n#1 \/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Core\/RegisterMcpTool.php(38): Automattic\\WordpressMcp\\Core\\RegisterMcpTool->validate_arguments()\n#2 \/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Tools\/McpRestApiCrud.php(46): Automattic\\WordpressMcp\\Core\\RegisterMcpTool->__construct()\n#3 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(324): Automattic\\WordpressMcp\\Tools\\McpRestApiCrud->register_tools()\n#4 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(348): WP_Hook->apply_filters()\n#5 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/plugin.php(517): WP_Hook->do_action()\n#6 \/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Core\/WpMcp.php(155): do_action()\n#7 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(324): Automattic\\WordpressMcp\\Core\\WpMcp->wordpress_mcp_init()\n#8 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(348): WP_Hook->apply_filters()\n#9 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/plugin.php(517): WP_Hook->do_action()\n#10 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/rest-api.php(628): do_action()\n#11 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/rest-api.php(452): rest_get_server()\n#12 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(324): rest_api_loaded()\n#13 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp-hook.php(348): WP_Hook->apply_filters()\n#14 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/plugin.php(565): WP_Hook->do_action()\n#15 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp.php(418): do_action_ref_array()\n#16 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/class-wp.php(818): WP->parse_request()\n#17 \/home\/hc4ss4d3haht\/public_html\/wp-includes\/functions.php(1342): WP->main()\n#18 \/home\/hc4ss4d3haht\/public_html\/wp-blog-header.php(16): wp()\n#19 \/home\/hc4ss4d3haht\/public_html\/index.php(17): require('\/home\/hc4ss4d3h...')\n#20 {main}\n  thrown","file":"\/home\/hc4ss4d3haht\/public_html\/wp-content\/plugins\/wordpress-mcp\/includes\/Core\/RegisterMcpTool.php","line":312}},"additional_errors":[]}
+2025-12-03T18:48:08.937Z [ERROR] [TRANSPORT_DETECT] ❌ Both JSON-RPC and simple transports failed
+{
+  "name": "APIError",
+  "statusCode": 500,
+  "endpoint": "https://www.nonirvanadigital.com/?rest_route=/wp/v2/wpmcp",
+  "response": "{\"code\":\"internal_server_error\",\"message\":\"<p>There has been a critical error on this website.<\\/p><p><a href=\\\"https:\\/\\/wordpress.org\\/documentation\\/article\\/faq-troubleshooting\\/\\\">Learn more about troubleshooting WordPress.<\\/a><\\/p>\",\"data\":{\"status\":500,\"error\":{\"type\":1,\"message\":\"Uncaught InvalidArgumentException: The required field must be an array. in \\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Core\\/RegisterMcpTool.php:312\\nStack trace:\\n#0 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Core\\/RegisterMcpTool.php(239): Automattic\\\\WordpressMcp\\\\Core\\\\RegisterMcpTool->validate_input_schema()\\n#1 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Core\\/RegisterMcpTool.php(38): Automattic\\\\WordpressMcp\\\\Core\\\\RegisterMcpTool->validate_arguments()\\n#2 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Tools\\/McpRestApiCrud.php(46): Automattic\\\\WordpressMcp\\\\Core\\\\RegisterMcpTool->__construct()\\n#3 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(324): Automattic\\\\WordpressMcp\\\\Tools\\\\McpRestApiCrud->register_tools()\\n#4 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(348): WP_Hook->apply_filters()\\n#5 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/plugin.php(517): WP_Hook->do_action()\\n#6 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Core\\/WpMcp.php(155): do_action()\\n#7 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(324): Automattic\\\\WordpressMcp\\\\Core\\\\WpMcp->wordpress_mcp_init()\\n#8 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(348): WP_Hook->apply_filters()\\n#9 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/plugin.php(517): WP_Hook->do_action()\\n#10 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/rest-api.php(628): do_action()\\n#11 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/rest-api.php(452): rest_get_server()\\n#12 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(324): rest_api_loaded()\\n#13 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp-hook.php(348): WP_Hook->apply_filters()\\n#14 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/plugin.php(565): WP_Hook->do_action()\\n#15 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp.php(418): do_action_ref_array()\\n#16 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/class-wp.php(818): WP->parse_request()\\n#17 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-includes\\/functions.php(1342): WP->main()\\n#18 \\/home\\/hc4ss4d3haht\\/public_html\\/wp-blog-header.php(16): wp()\\n#19 \\/home\\/hc4ss4d3haht\\/public_html\\/index.php(17): require('\\/home\\/hc4ss4d3h...')\\n#20 {main}\\n  thrown\",\"file\":\"\\/home\\/hc4ss4d3haht\\/public_html\\/wp-content\\/plugins\\/wordpress-mcp\\/includes\\/Core\\/RegisterMcpTool.php\",\"line\":312}},\"additional_errors\":[]}"
+}
+2025-12-03T18:48:08.939Z [ERROR] [INIT] ❌ Failed to initialize WordPress connection with client parameters
+{}
+2025-12-03T18:48:08.940Z [WARN] [INIT] ⚠️ Using fallback initialize response

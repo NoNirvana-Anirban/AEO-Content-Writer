@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Content Agentic Workflow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: border-color 0.3s ease;
+            background-color: white;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-group select {
+            cursor: pointer;
+        }
+        
+        .autocomplete-wrapper {
+            position: relative;
+        }
+        
+        .autocomplete-suggestions {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #e1e5e9;
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .autocomplete-suggestions.show {
+            display: block;
+        }
+        
+        .autocomplete-suggestion {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #f1f3f4;
+            transition: background-color 0.2s ease;
+        }
+        
+        .autocomplete-suggestion:last-child {
+            border-bottom: none;
+        }
+        
+        .autocomplete-suggestion:hover,
+        .autocomplete-suggestion.selected {
+            background-color: #f8f9fa;
+        }
+        
+        .autocomplete-suggestion .suggestion-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        
+        .autocomplete-suggestion .suggestion-details {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .autocomplete-suggestion .suggestion-type {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            margin-top: 4px;
+        }
+        
+        .autocomplete-loading {
+            padding: 12px 15px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .autocomplete-loading::after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .search-options {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .search-options h3 {
+            margin-bottom: 15px;
+            color: #333;
+            text-align: center;
+        }
+        
+        .option-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .btn-serp {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+            max-width: 200px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .btn-web {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            flex: 1;
+            max-width: 200px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .btn-serp:hover, .btn-web:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .btn-serp strong, .btn-web strong {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        
+        .btn-serp small, .btn-web small {
+            opacity: 0.9;
+            font-size: 0.9em;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #c33;
+        }
+        
+        .progress-container {
+            margin: 20px 0;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid #e1e5e9;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 28px;
+            background: #e9ecef;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+            box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+            border-radius: 14px;
+        }
+        
+        .progress-text {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .progress-messages {
+            max-height: 300px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .progress-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .progress-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        .progress-messages::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+        
+        .progress-messages::-webkit-scrollbar-thumb:hover {
+            background: #5568d3;
+        }
+        
+        .progress-message {
+            padding: 12px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+            font-size: 14px;
+            line-height: 1.5;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .progress-message:last-child {
+            margin-bottom: 0;
+        }
+        
+        .progress-message .timestamp {
+            color: #999;
+            font-size: 11px;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        
+        .progress-message > div:last-child {
+            color: #333;
+            word-wrap: break-word;
+        }
+        
+        .features {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e1e5e9;
+        }
+        
+        .features h3 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .feature-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .feature-item h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .feature-item p {
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SEO Content Workflow</h1>
+            <p>Create SEO-optimized blog posts with AI-powered agents</p>
+        </div>
+        
+        {% if error %}
+        <div class="error">
+            {{ error }}
+        </div>
+        {% endif %}
+        
+        <form id="workflowForm" onsubmit="return false;">
+            <div class="form-group">
+                <label for="keyword">Enter your target keywords (comma-separated):</label>
+                <input type="text" id="keyword" name="keyword" placeholder="e.g., best SEO tools 2024, SEO optimization, content marketing" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="location">Enter Location (optional):</label>
+                <div class="autocomplete-wrapper">
+                    <input type="text" id="location" name="location" placeholder="e.g., Austin, Texas, United States" autocomplete="off">
+                    <div id="locationSuggestions" class="autocomplete-suggestions"></div>
+                </div>
+                <input type="hidden" id="locationId" name="locationId">
+                <input type="hidden" id="locationCanonical" name="locationCanonical">
+            </div>
+            
+            <div class="search-options" id="searchOptions" style="display: none;">
+                <h3>Choose Search Method:</h3>
+                <div class="option-buttons">
+                    <button type="button" class="btn btn-serp" onclick="startWorkflow('serpapi')">
+                        <strong>SerpAPI</strong><br>
+                        <small>Fast & reliable</small>
+                    </button>
+                    <button type="button" class="btn btn-web" onclick="startWorkflow('webbrowse')">
+                        <strong>OpenAI Web Search</strong><br>
+                        <small>AI-powered web browsing</small>
+                    </button>
+                </div>
+            </div>
+            
+            <button type="button" class="btn" id="submitBtn" onclick="showSearchOptions();">
+                Start SEO Content Creation
+            </button>
+            
+        </form>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Creating your SEO content... This may take a few minutes.</p>
+        </div>
+        
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-text" id="progressText">Starting workflow...</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-messages" id="progressMessages"></div>
+        </div>
+        
+        <div class="features">
+            <h3>What this workflow does:</h3>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h4>🔍 SERP Research</h4>
+                    <p>Analyzes top ranking pages using SERP API or AI web search to find competitor URLs</p>
+                </div>
+                <div class="feature-item">
+                    <h4>📊 DOM Analysis</h4>
+                    <p>Extracts major and minor topics with subtopics from competitor content using AI + web search</p>
+                </div>
+                <div class="feature-item">
+                    <h4>📝 Content Brief</h4>
+                    <p>Creates SEO-optimized brief with heading structure, meta tags (60/150 char limits), and H1 validation</p>
+                </div>
+                <div class="feature-item">
+                    <h4>✍️ AI Content Writing</h4>
+                    <p>Generates comprehensive blog posts with proper HTML structure, headings, and code blocks</p>
+                </div>
+                <div class="feature-item">
+                    <h4>✏️ Content Editing</h4>
+                    <p>Applies tone guidelines from tone.txt while preserving exact heading structure</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🎨 Visual Analysis</h4>
+                    <p>Analyzes content to determine visual requirements: images (photos), infographics (diagrams with text), and tables</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🖼️ Visual Generation</h4>
+                    <p>Generates images (1200x800), infographics (1200x1800), and styled tables with proper placement</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🔧 SEO Optimization</h4>
+                    <p>Optimizes title (60 chars), meta description (150 chars), slug, Article/FAQ schemas, and OG tags</p>
+                </div>
+                <div class="feature-item">
+                    <h4>📄 Review & Publish</h4>
+                    <p>Interactive editor with copy (rich text), code block support, and WordPress publishing with image uploads</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+
+        
+        let eventSource = null;
+        
+        // Show search options when user clicks submit
+        function showSearchOptions() {
+            const keyword = document.getElementById('keyword').value.trim();
+            
+            if (!keyword) {
+                alert('Please enter at least one keyword');
+                return;
+            }
+            
+            // Location is optional, so no validation needed here
+            
+            // Hide submit button and show search options
+            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('searchOptions').style.display = 'block';
+        }
+        
+        // Start workflow with chosen method
+        function startWorkflow(method) {
+            console.log('Starting workflow with method:', method);
+            
+            const keywordInput = document.getElementById('keyword').value.trim();
+            const location = document.getElementById('location').value;
+            const locationId = document.getElementById('locationId').value;
+            const locationCanonical = document.getElementById('locationCanonical').value;
+            const loading = document.getElementById('loading');
+            const progressContainer = document.getElementById('progressContainer');
+            
+            // Parse comma-separated keywords
+            const keywords = keywordInput.split(',').map(k => k.trim()).filter(k => k.length > 0);
+            
+            console.log('Keywords:', keywords, 'Location:', location, 'Location ID:', locationId, 'Canonical:', locationCanonical, 'Method:', method);
+            
+            if (keywords.length === 0) {
+                alert('Please enter at least one keyword');
+                return;
+            }
+            
+            // Location is optional, so no validation needed
+            
+            // Hide search options, show loading
+            document.getElementById('searchOptions').style.display = 'none';
+            loading.classList.add('show');
+            
+            // Build request body with optional location
+            const requestBody = {
+                keywords: keywords,
+                keyword: keywords.join(', '), // Keep for backward compatibility
+                method: method
+            };
+            
+            // Only include location data if it's provided
+            if (location && locationCanonical) {
+                requestBody.location = locationCanonical || location;
+                requestBody.location_id = locationId;
+                requestBody.location_name = location;
+            }
+            
+            // Start the workflow
+            fetch('/start-workflow', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response:', data);
+                if (data.success) {
+                    console.log('Workflow started successfully');
+                    // Hide loading, show progress
+                    loading.classList.remove('show');
+                    progressContainer.style.display = 'block';
+                    
+                    // Start listening for progress updates
+                    startProgressTracking();
+                } else {
+                    alert('Error: ' + data.error);
+                    resetForm();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error: ' + error.message);
+                resetForm();
+            });
+        }
+        
+        // Simple test function
+        function testFormSubmission() {
+            console.log('Testing form submission...');
+            const keywordInput = document.getElementById('keyword').value.trim();
+            const location = document.getElementById('location').value;
+            const locationCanonical = document.getElementById('locationCanonical').value;
+            const keywords = keywordInput.split(',').map(k => k.trim()).filter(k => k.length > 0);
+            
+            console.log('Keywords:', keywords, 'Location:', location, 'Canonical:', locationCanonical);
+            
+            if (keywords.length === 0) {
+                alert('Please enter at least one keyword');
+                return;
+            }
+            
+            // Location is optional, so no validation needed
+            
+            // Build request body with optional location
+            const requestBody = {
+                keywords: keywords,
+                keyword: keywords.join(', ')
+            };
+            
+            // Only include location data if it's provided
+            if (location && locationCanonical) {
+                requestBody.location = locationCanonical || location;
+            }
+            
+            // Simple test without progress tracking
+            fetch('/start-workflow', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Test response:', data);
+                if (data.success) {
+                    alert('Workflow started successfully! Check console for progress updates.');
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Test error:', error);
+                alert('Error: ' + error.message);
+            });
+        }
+        
+        function startProgressTracking() {
+            console.log('Starting progress tracking');
+            
+            // Clear previous messages and reset tracking
+            displayedMessages.clear();
+            const progressMessages = document.getElementById('progressMessages');
+            if (progressMessages) {
+                progressMessages.innerHTML = '';
+            }
+            
+            // Close previous event source if exists
+            if (eventSource) {
+                eventSource.close();
+            }
+            
+            eventSource = new EventSource('/progress');
+            
+            eventSource.onmessage = function(event) {
+                console.log('Progress update received:', event.data);
+                const data = JSON.parse(event.data);
+                updateProgress(data);
+                
+                // If workflow is complete, redirect to review page
+                if (data.status === 'completed') {
+                    console.log('Workflow completed, redirecting to review page');
+                    setTimeout(() => {
+                        window.location.href = '/review';
+                    }, 2000);
+                } else if (data.status === 'failed') {
+                    console.error('Workflow failed:', data.error);
+                    alert('Workflow failed: ' + (data.error || 'Unknown error'));
+                    resetForm();
+                }
+            };
+            
+            eventSource.onerror = function(event) {
+                console.error('EventSource failed:', event);
+                resetForm();
+            };
+        }
+        
+        // Track displayed messages to prevent duplicates
+        const displayedMessages = new Set();
+        
+        function updateProgress(data) {
+            const progressText = document.getElementById('progressText');
+            const progressFill = document.getElementById('progressFill');
+            const progressMessages = document.getElementById('progressMessages');
+            
+            // Update progress text and percentage
+            progressText.textContent = data.current_step || 'Processing...';
+            progressFill.style.width = data.progress_percentage + '%';
+            
+            // Add new messages only (prevent duplicates using Set)
+            if (data.messages && data.messages.length > 0) {
+                data.messages.forEach(message => {
+                    // Create unique key from timestamp and message content
+                    const messageKey = `${message.timestamp}-${message.message}`;
+                    
+                    // Only add if we haven't seen this message before
+                    if (!displayedMessages.has(messageKey)) {
+                        displayedMessages.add(messageKey);
+                        
+                        const messageDiv = document.createElement('div');
+                        messageDiv.className = 'progress-message';
+                        messageDiv.dataset.messageKey = messageKey;
+                        
+                        const timestamp = new Date(message.timestamp * 1000).toLocaleTimeString();
+                        messageDiv.innerHTML = `
+                            <div class="timestamp">${timestamp}</div>
+                            <div>${message.message}</div>
+                        `;
+                        
+                        progressMessages.appendChild(messageDiv);
+                    }
+                });
+                
+                // Scroll to bottom
+                progressMessages.scrollTop = progressMessages.scrollHeight;
+            }
+        }
+        
+        function resetForm() {
+            const submitBtn = document.getElementById('submitBtn');
+            const loading = document.getElementById('loading');
+            const progressContainer = document.getElementById('progressContainer');
+            const searchOptions = document.getElementById('searchOptions');
+            const progressMessages = document.getElementById('progressMessages');
+            
+            submitBtn.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Start SEO Content Creation';
+            loading.classList.remove('show');
+            progressContainer.style.display = 'none';
+            searchOptions.style.display = 'none';
+            
+            // Clear progress messages and reset tracking
+            if (progressMessages) {
+                progressMessages.innerHTML = '';
+            }
+            displayedMessages.clear();
+            
+            if (eventSource) {
+                eventSource.close();
+                eventSource = null;
+            }
+        }
+        
+        // Autocomplete functionality for location
+        let locationAutocompleteTimeout = null;
+        let selectedLocationIndex = -1;
+        let locationSuggestions = [];
+        let currentAbortController = null;
+        let locationCache = new Map(); // Simple cache for location results
+        
+        function showLoadingIndicator() {
+            const suggestionsDiv = document.getElementById('locationSuggestions');
+            suggestionsDiv.innerHTML = '<div class="autocomplete-loading">Searching locations</div>';
+            suggestionsDiv.classList.add('show');
+        }
+        
+        function searchLocations(query) {
+            const trimmedQuery = query.trim();
+            
+            if (trimmedQuery.length < 2) {
+                hideLocationSuggestions();
+                return;
+            }
+            
+            // Check cache first
+            const cacheKey = trimmedQuery.toLowerCase();
+            if (locationCache.has(cacheKey)) {
+                const cachedResults = locationCache.get(cacheKey);
+                locationSuggestions = cachedResults;
+                displayLocationSuggestions(cachedResults);
+                return;
+            }
+            
+            // Cancel previous request if still pending
+            if (currentAbortController) {
+                currentAbortController.abort();
+            }
+            
+            // Clear previous timeout
+            if (locationAutocompleteTimeout) {
+                clearTimeout(locationAutocompleteTimeout);
+            }
+            
+            // Show loading indicator immediately
+            showLoadingIndicator();
+            
+            // Create new AbortController for this request
+            currentAbortController = new AbortController();
+            
+            // Reduced debounce for faster response
+            locationAutocompleteTimeout = setTimeout(() => {
+                fetch(`/api/locations?q=${encodeURIComponent(trimmedQuery)}&limit=10`, {
+                    signal: currentAbortController.signal
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch locations');
+                        }
+                        return response.json();
+                    })
+                    .then(locations => {
+                        // Cache the results
+                        locationCache.set(cacheKey, locations);
+                        
+                        // Limit cache size to prevent memory issues
+                        if (locationCache.size > 50) {
+                            const firstKey = locationCache.keys().next().value;
+                            locationCache.delete(firstKey);
+                        }
+                        
+                        locationSuggestions = locations;
+                        displayLocationSuggestions(locations);
+                        currentAbortController = null;
+                    })
+                    .catch(error => {
+                        if (error.name === 'AbortError') {
+                            // Request was cancelled, ignore
+                            return;
+                        }
+                        console.error('Error fetching locations:', error);
+                        hideLocationSuggestions();
+                        currentAbortController = null;
+                    });
+            }, 100); // Further reduced to 100ms for even faster response
+        }
+        
+        function displayLocationSuggestions(locations) {
+            const suggestionsDiv = document.getElementById('locationSuggestions');
+            
+            if (locations.length === 0) {
+                suggestionsDiv.innerHTML = '';
+                suggestionsDiv.classList.remove('show');
+                return;
+            }
+            
+            // Use DocumentFragment for better performance
+            const fragment = document.createDocumentFragment();
+            
+            locations.forEach((location, index) => {
+                const suggestionDiv = document.createElement('div');
+                suggestionDiv.className = 'autocomplete-suggestion';
+                suggestionDiv.dataset.index = index;
+                
+                // Use innerHTML for faster rendering (single operation)
+                suggestionDiv.innerHTML = `
+                    <div class="suggestion-name">${escapeHtml(location.name)}</div>
+                    <div class="suggestion-details">${escapeHtml(location.canonical_name || location.name)}</div>
+                    <div class="suggestion-type">${escapeHtml(location.target_type || 'Location')}</div>
+                `;
+                
+                // Use event delegation for better performance
+                suggestionDiv.addEventListener('click', () => {
+                    selectLocation(location);
+                });
+                
+                suggestionDiv.addEventListener('mouseenter', () => {
+                    selectedLocationIndex = index;
+                    updateSelectedSuggestion();
+                });
+                
+                fragment.appendChild(suggestionDiv);
+            });
+            
+            // Single DOM update
+            suggestionsDiv.innerHTML = '';
+            suggestionsDiv.appendChild(fragment);
+            suggestionsDiv.classList.add('show');
+            selectedLocationIndex = -1;
+        }
+        
+        // Helper function to escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function hideLocationSuggestions() {
+            const suggestionsDiv = document.getElementById('locationSuggestions');
+            suggestionsDiv.classList.remove('show');
+            selectedLocationIndex = -1;
+        }
+        
+        function selectLocation(location) {
+            const locationInput = document.getElementById('location');
+            const locationIdInput = document.getElementById('locationId');
+            const locationCanonicalInput = document.getElementById('locationCanonical');
+            
+            locationInput.value = location.canonical_name || location.name;
+            locationIdInput.value = location.id || '';
+            locationCanonicalInput.value = location.canonical_name || location.name;
+            
+            hideLocationSuggestions();
+        }
+        
+        function updateSelectedSuggestion() {
+            const suggestions = document.querySelectorAll('.autocomplete-suggestion');
+            suggestions.forEach((suggestion, index) => {
+                if (index === selectedLocationIndex) {
+                    suggestion.classList.add('selected');
+                } else {
+                    suggestion.classList.remove('selected');
+                }
+            });
+        }
+        
+        // Check if all required elements exist
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded');
+            const form = document.getElementById('workflowForm');
+            const keyword = document.getElementById('keyword');
+            const location = document.getElementById('location');
+            const submitBtn = document.getElementById('submitBtn');
+            const loading = document.getElementById('loading');
+            const progressContainer = document.getElementById('progressContainer');
+            const testBtn = document.getElementById('testBtn');
+            
+            console.log('Form elements found:', {
+                form: !!form,
+                keyword: !!keyword,
+                location: !!location,
+                submitBtn: !!submitBtn,
+                loading: !!loading,
+                progressContainer: !!progressContainer,
+                testBtn: !!testBtn
+            });
+            
+            if (!form) {
+                console.error('Form element not found!');
+                return;
+            }
+            
+            // Setup location autocomplete
+            if (location) {
+                // Use input event with immediate feedback for better UX
+                location.addEventListener('input', (e) => {
+                    const query = e.target.value;
+                    // Don't trim here - let searchLocations handle it
+                    searchLocations(query);
+                });
+                
+                location.addEventListener('keydown', (e) => {
+                    const suggestionsDiv = document.getElementById('locationSuggestions');
+                    if (!suggestionsDiv.classList.contains('show') || locationSuggestions.length === 0) {
+                        return;
+                    }
+                    
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        selectedLocationIndex = Math.min(selectedLocationIndex + 1, locationSuggestions.length - 1);
+                        updateSelectedSuggestion();
+                        // Scroll selected item into view
+                        const selected = suggestionsDiv.querySelector('.autocomplete-suggestion.selected');
+                        if (selected) {
+                            selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                        }
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        selectedLocationIndex = Math.max(selectedLocationIndex - 1, -1);
+                        updateSelectedSuggestion();
+                        // Scroll selected item into view
+                        const selected = suggestionsDiv.querySelector('.autocomplete-suggestion.selected');
+                        if (selected) {
+                            selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                        }
+                    } else if (e.key === 'Enter' && selectedLocationIndex >= 0) {
+                        e.preventDefault();
+                        selectLocation(locationSuggestions[selectedLocationIndex]);
+                    } else if (e.key === 'Escape') {
+                        hideLocationSuggestions();
+                    }
+                });
+                
+                // Hide suggestions when clicking outside (using capture phase for better performance)
+                document.addEventListener('click', (e) => {
+                    const locationWrapper = location.closest('.autocomplete-wrapper');
+                    if (locationWrapper && !locationWrapper.contains(e.target)) {
+                        hideLocationSuggestions();
+                    }
+                }, true);
+            }
+            
+            // Add event listener for test button
+            if (testBtn) {
+                testBtn.addEventListener('click', testFormSubmission);
+            }
+        });
+    </script>
+</body>
+</html>

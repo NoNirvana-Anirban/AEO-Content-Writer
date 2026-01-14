@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Content - SEO Workflow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            color: #333;
+            font-size: 1.8em;
+        }
+        
+        .header .keyword {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        .main-container {
+            height: calc(100vh - 80px);
+        }
+        
+        .content-panel {
+            background: white;
+            margin: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 120px);
+        }
+        
+        .panel-header {
+            padding: 20px;
+            border-bottom: 1px solid #e1e5e9;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .content-area {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .content-preview {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .content-preview h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        
+        .content-preview h2 {
+            color: #333;
+            margin: 30px 0 15px 0;
+            font-size: 1.5em;
+        }
+        
+        .content-preview h3 {
+            color: #555;
+            margin: 20px 0 10px 0;
+            font-size: 1.2em;
+        }
+        
+        .content-preview p {
+            margin-bottom: 15px;
+        }
+        
+        .content-preview ul, .content-preview ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        
+        .content-editor {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.6;
+            color: #333;
+            border: 2px solid #e1e5e9;
+            min-height: 400px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+        
+        .content-editor:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .content-editor:hover {
+            border-color: #667eea;
+        }
+        
+        .content-editor h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        
+        .content-editor h2 {
+            color: #333;
+            margin: 30px 0 15px 0;
+            font-size: 1.5em;
+        }
+        
+        .content-editor h3 {
+            color: #555;
+            margin: 20px 0 10px 0;
+            font-size: 1.2em;
+        }
+        
+        .content-editor p {
+            margin-bottom: 15px;
+        }
+        
+        .content-editor ul, .content-editor ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        
+        .content-editor pre {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        
+        .content-editor code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+        
+        .content-editor pre code {
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            display: block;
+            white-space: pre;
+        }
+        
+        .content-editor .wp-block-code {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border: 1px solid #3e3e3e;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .content-editor .wp-block-code code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+        
+        .action-buttons {
+            padding: 20px;
+            border-top: 1px solid #e1e5e9;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-overlay.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow: hidden;
+            animation: slideUp 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e1e5e9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .modal-body {
+            padding: 25px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        .modal-footer {
+            padding: 15px 25px;
+            border-top: 1px solid #e1e5e9;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .modal-message {
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .modal-success {
+            color: #28a745;
+        }
+        
+        .modal-error {
+            color: #dc3545;
+        }
+        
+        .modal-info {
+            color: #667eea;
+        }
+        
+        /* Progress Steps */
+        .progress-steps {
+            margin-top: 20px;
+        }
+        
+        .progress-step {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        
+        .progress-step.active {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+        }
+        
+        .progress-step.completed {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+        
+        .progress-step.failed {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .step-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 0.9em;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .progress-step.active .step-icon {
+            background: #667eea;
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .progress-step.completed .step-icon {
+            background: #28a745;
+            color: white;
+        }
+        
+        .progress-step.failed .step-icon {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .step-text {
+            flex: 1;
+            color: #333;
+            font-size: 0.95em;
+        }
+        
+        .step-time {
+            color: #999;
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .btn-modal {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-modal-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-modal-primary:hover {
+            background: #5568d3;
+        }
+        
+        .btn-modal-secondary {
+            background: #e1e5e9;
+            color: #333;
+        }
+        
+        .btn-modal-secondary:hover {
+            background: #d1d5d9;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Content Review & Edit</h1>
+        <div class="keyword">{{ keyword }}</div>
+    </div>
+    
+    <div class="main-container">
+        <div class="content-panel">
+            <div class="panel-header">
+                Content Preview
+            </div>
+            <div class="content-area">
+                <div class="content-editor" contenteditable="true" id="contentEditor">
+                    {% if workflow_data.blog_post %}
+                        {{ workflow_data.blog_post.content | safe }}
+                    {% else %}
+                        <p>No content available</p>
+                    {% endif %}
+                </div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e1e5e9;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <strong style="color: #333; font-size: 1em;">Word Count:</strong>
+                        <span id="wordCount" style="color: #667eea; font-weight: 600; font-size: 1.1em;">0</span>
+                    </div>
+                </div>
+                
+                {% if workflow_data.seo_optimization %}
+                <div class="seo-optimization-section" style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; border: 1px solid #e1e5e9;">
+                    <h3 style="color: #667eea; margin-bottom: 20px; font-size: 1.3em;">SEO Optimization Data</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div>
+                            <label style="display: block; font-weight: 600; color: #333; margin-bottom: 5px;">Title ({{ workflow_data.seo_optimization.title|length }} chars)</label>
+                            <input type="text" id="seoTitle" value="{{ workflow_data.seo_optimization.title }}" style="width: 100%; padding: 8px; border: 1px solid #e1e5e9; border-radius: 5px; font-size: 0.9em;" maxlength="60">
+                        </div>
+                        <div>
+                            <label style="display: block; font-weight: 600; color: #333; margin-bottom: 5px;">Slug</label>
+                            <input type="text" id="seoSlug" value="{{ workflow_data.seo_optimization.slug }}" style="width: 100%; padding: 8px; border: 1px solid #e1e5e9; border-radius: 5px; font-size: 0.9em;">
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; font-weight: 600; color: #333; margin-bottom: 5px;">Meta Description ({{ workflow_data.seo_optimization.meta_description|length }} chars)</label>
+                        <textarea id="seoMetaDescription" rows="3" style="width: 100%; padding: 8px; border: 1px solid #e1e5e9; border-radius: 5px; font-size: 0.9em; resize: vertical;" maxlength="150">{{ workflow_data.seo_optimization.meta_description }}</textarea>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: #333; margin-bottom: 10px; font-size: 1.1em;">Open Graph Tags</h4>
+                        <div style="background: white; padding: 15px; border-radius: 5px;">
+                            {% for key, value in workflow_data.seo_optimization.og_tags.items() %}
+                            {% set safe_key = key|replace(':', '_')|replace('.', '_')|replace('-', '_') %}
+                            <div style="margin-bottom: 10px;">
+                                <label style="display: block; font-weight: 600; color: #333; margin-bottom: 5px; font-size: 0.9em;">{{ key }}</label>
+                                <input type="text" id="og_{{ safe_key }}" data-og-key="{{ key }}" value="{{ value }}" style="width: 100%; padding: 8px; border: 1px solid #e1e5e9; border-radius: 5px; font-size: 0.9em; font-family: monospace;">
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: #333; margin-bottom: 10px; font-size: 1.1em;">Article Schema (JSON-LD)</h4>
+                        <textarea id="articleSchema" rows="12" style="width: 100%; padding: 15px; border: 1px solid #e1e5e9; border-radius: 5px; font-family: monospace; font-size: 0.85em; resize: vertical; background: white;">{{ workflow_data.seo_optimization.article_schema | tojson(indent=2) }}</textarea>
+                    </div>
+                    
+                    {% if workflow_data.seo_optimization.faq_schema %}
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: #333; margin-bottom: 10px; font-size: 1.1em;">FAQ Schema (JSON-LD) - {{ workflow_data.seo_optimization.faqs_detected }} FAQs Detected</h4>
+                        <textarea id="faqSchema" rows="12" style="width: 100%; padding: 15px; border: 1px solid #e1e5e9; border-radius: 5px; font-family: monospace; font-size: 0.85em; resize: vertical; background: white;">{{ workflow_data.seo_optimization.faq_schema | tojson(indent=2) }}</textarea>
+                    </div>
+                    {% else %}
+                    <div style="margin-bottom: 20px; padding: 10px; background: #fff3cd; border-radius: 5px; color: #856404;">
+                        <strong>Note:</strong> No FAQs detected in the content. FAQ schema will not be generated.
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="copyContent()">Copy</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Component -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Notification</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-message" id="modalMessage"></p>
+                <div class="progress-steps" id="progressSteps" style="display: none;"></div>
+            </div>
+            <div class="modal-footer" id="modalFooter">
+                <button class="btn-modal btn-modal-primary" onclick="closeModal()">OK</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Modal Functions
+        function showModal(title, message, type = 'info', showProgress = false) {
+            const overlay = document.getElementById('modalOverlay');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalMessage = document.getElementById('modalMessage');
+            const progressSteps = document.getElementById('progressSteps');
+            const modalFooter = document.getElementById('modalFooter');
+            
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            modalMessage.className = 'modal-message ' + (type === 'error' ? 'modal-error' : type === 'success' ? 'modal-success' : 'modal-info');
+            
+            if (showProgress) {
+                progressSteps.style.display = 'block';
+                progressSteps.innerHTML = '';
+            } else {
+                progressSteps.style.display = 'none';
+            }
+            
+            // Hide footer buttons for progress modals
+            if (showProgress) {
+                modalFooter.style.display = 'none';
+            } else {
+                modalFooter.style.display = 'flex';
+            }
+            
+            overlay.classList.add('show');
+        }
+        
+        function closeModal() {
+            const overlay = document.getElementById('modalOverlay');
+            overlay.classList.remove('show');
+        }
+        
+        function addProgressStep(text, status = 'pending') {
+            const progressSteps = document.getElementById('progressSteps');
+            const stepDiv = document.createElement('div');
+            stepDiv.className = `progress-step ${status}`;
+            
+            const icon = document.createElement('div');
+            icon.className = 'step-icon';
+            
+            if (status === 'completed') {
+                icon.textContent = '✓';
+            } else if (status === 'failed') {
+                icon.textContent = '✕';
+            } else if (status === 'active') {
+                icon.textContent = '⟳';
+            } else {
+                icon.textContent = '○';
+            }
+            
+            const textDiv = document.createElement('div');
+            textDiv.className = 'step-text';
+            textDiv.textContent = text;
+            
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'step-time';
+            timeDiv.textContent = new Date().toLocaleTimeString();
+            
+            stepDiv.appendChild(icon);
+            stepDiv.appendChild(textDiv);
+            stepDiv.appendChild(timeDiv);
+            
+            progressSteps.appendChild(stepDiv);
+            
+            // Scroll to bottom
+            progressSteps.scrollTop = progressSteps.scrollHeight;
+        }
+        
+        function updateProgressStep(index, status) {
+            const steps = document.querySelectorAll('.progress-step');
+            if (steps[index]) {
+                steps[index].className = `progress-step ${status}`;
+                const icon = steps[index].querySelector('.step-icon');
+                if (icon) {
+                    if (status === 'completed') {
+                        icon.textContent = '✓';
+                    } else if (status === 'failed') {
+                        icon.textContent = '✕';
+                    } else if (status === 'active') {
+                        icon.textContent = '⟳';
+                    }
+                }
+            }
+        }
+        
+        // Close modal when clicking outside
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+    
+    <script>
+        // Calculate word count from HTML content
+        function calculateWordCount(htmlContent) {
+            // Create a temporary div to extract text
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = htmlContent;
+            
+            // Get text content (removes HTML tags)
+            const text = tempDiv.textContent || tempDiv.innerText || '';
+            
+            // Split by whitespace and filter out empty strings
+            const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            
+            return words.length;
+        }
+        
+        // Update word count display
+        function updateWordCount() {
+            const contentEditor = document.getElementById('contentEditor');
+            const wordCountEl = document.getElementById('wordCount');
+            
+            if (contentEditor && wordCountEl) {
+                const wordCount = calculateWordCount(contentEditor.innerHTML);
+                wordCountEl.textContent = wordCount.toLocaleString();
+            }
+        }
+        
+        // Copy content as rich text (with formatting, images, tables, code blocks)
+        async function copyContent() {
+            const contentEditor = document.getElementById('contentEditor');
+            
+            if (!contentEditor || !contentEditor.innerHTML || contentEditor.innerHTML.trim() === '') {
+                showModal('No Content', 'No content to copy', 'error');
+                return;
+            }
+            
+            const copyBtn = document.querySelector('.btn-primary');
+            const originalText = copyBtn.textContent;
+            
+            try {
+                // Get the HTML content
+                // Code blocks should already be properly formatted by WordPress publisher
+                const htmlContent = contentEditor.innerHTML;
+                
+                // Try modern Clipboard API first (supports rich text)
+                if (navigator.clipboard && navigator.clipboard.write) {
+                    // Create HTML blob
+                    const htmlBlob = new Blob([htmlContent], { type: 'text/html' });
+                    
+                    // Also create plain text version for fallback
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = htmlContent;
+                    const plainText = tempDiv.textContent || tempDiv.innerText || '';
+                    const textBlob = new Blob([plainText], { type: 'text/plain' });
+                    
+                    // Create ClipboardItem with both HTML and plain text
+                    const clipboardItem = new ClipboardItem({
+                        'text/html': htmlBlob,
+                        'text/plain': textBlob
+                    });
+                    
+                    await navigator.clipboard.write([clipboardItem]);
+                    
+                    // Show success feedback
+                    copyBtn.textContent = 'Copied!';
+                    copyBtn.style.background = '#28a745';
+                    
+                    setTimeout(() => {
+                        copyBtn.textContent = originalText;
+                        copyBtn.style.background = '';
+                    }, 2000);
+                    
+                    return;
+                }
+                
+                // Fallback: Use execCommand for older browsers
+                // Create a temporary container to hold the content
+                const tempDiv = document.createElement('div');
+                tempDiv.style.position = 'fixed';
+                tempDiv.style.left = '-9999px';
+                tempDiv.innerHTML = htmlContent;
+                document.body.appendChild(tempDiv);
+                
+                // Select the content
+                const range = document.createRange();
+                range.selectNodeContents(tempDiv);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+                
+                // Copy
+                const successful = document.execCommand('copy');
+                
+                // Cleanup
+                selection.removeAllRanges();
+                document.body.removeChild(tempDiv);
+                
+                if (successful) {
+                    copyBtn.textContent = 'Copied!';
+                    copyBtn.style.background = '#28a745';
+                    
+                    setTimeout(() => {
+                        copyBtn.textContent = originalText;
+                        copyBtn.style.background = '';
+                    }, 2000);
+                } else {
+                    throw new Error('execCommand copy failed');
+                }
+                
+            } catch (error) {
+                console.error('Copy error:', error);
+                // Final fallback: Select content in editor for manual copy
+                contentEditor.focus();
+                const range = document.createRange();
+                range.selectNodeContents(contentEditor);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+                
+                showModal('Copy Failed', 'Please use Ctrl+C (or Cmd+C on Mac) to copy the selected content', 'error');
+            }
+        }
+        
+        // Initialize word count on page load and update on content change
+        document.addEventListener('DOMContentLoaded', function() {
+            updateWordCount();
+            
+            const contentEditor = document.getElementById('contentEditor');
+            if (contentEditor) {
+                // Update word count when content changes
+                contentEditor.addEventListener('input', updateWordCount);
+                contentEditor.addEventListener('paste', function() {
+                    setTimeout(updateWordCount, 100); // Wait for paste to complete
+                });
+            }
+        });
+        
+        async function publishContent() {
+            const contentEditor = document.getElementById('contentEditor');
+            const content = contentEditor.innerHTML;
+            
+            if (!content || content.trim() === '') {
+                showModal('No Content', 'No content to publish', 'error');
+                return;
+            }
+            
+            // Show confirmation modal
+            showModal('Confirm Publishing', 'Are you sure you want to save this content as a draft to WordPress?', 'info');
+            
+            // Update footer with confirmation buttons
+            const modalFooter = document.getElementById('modalFooter');
+            modalFooter.innerHTML = `
+                <button class="btn-modal btn-modal-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn-modal btn-modal-primary" onclick="closeModal(); executePublishing()">Yes, Publish</button>
+            `;
+        }
+        
+        async function executePublishing() {
+            const contentEditor = document.getElementById('contentEditor');
+            const content = contentEditor.innerHTML;
+            
+            // Show progress modal
+            showModal('Publishing to WordPress', 'Starting publication process...', 'info', true);
+            
+            // Initialize progress steps
+            addProgressStep('Preparing content...', 'active');
+            let stepIndex = 0;
+            
+            try {
+                // Step 1: Collect SEO data
+                updateProgressStep(stepIndex++, 'completed');
+                addProgressStep('Collecting SEO optimization data...', 'active');
+                
+                let seoData = null;
+                const seoTitleEl = document.getElementById('seoTitle');
+                const seoSlugEl = document.getElementById('seoSlug');
+                const seoMetaDescEl = document.getElementById('seoMetaDescription');
+                const articleSchemaEl = document.getElementById('articleSchema');
+                const faqSchemaEl = document.getElementById('faqSchema');
+                
+                if (seoTitleEl) {
+                    seoData = {
+                        title: seoTitleEl.value,
+                        slug: seoSlugEl ? seoSlugEl.value : '',
+                        meta_description: seoMetaDescEl ? seoMetaDescEl.value : '',
+                        article_schema: null,
+                        faq_schema: null,
+                        og_tags: {}
+                    };
+                    
+                    // Collect OG tags
+                    const ogInputs = document.querySelectorAll('[id^="og_"]');
+                    ogInputs.forEach(input => {
+                        const key = input.getAttribute('data-og-key') || input.id.replace('og_', '').replace(/_/g, '.').replace(/_/g, ':');
+                        seoData.og_tags[key] = input.value;
+                    });
+                    
+                    // Collect schemas (parse JSON from textarea)
+                    if (articleSchemaEl) {
+                        try {
+                            seoData.article_schema = JSON.parse(articleSchemaEl.value);
+                        } catch (e) {
+                            console.warn('Invalid Article Schema JSON:', e);
+                            seoData.article_schema = null;
+                        }
+                    }
+                    
+                    if (faqSchemaEl) {
+                        try {
+                            seoData.faq_schema = JSON.parse(faqSchemaEl.value);
+                        } catch (e) {
+                            console.warn('Invalid FAQ Schema JSON:', e);
+                            seoData.faq_schema = null;
+                        }
+                    }
+                }
+                
+                // Step 2: Upload images
+                updateProgressStep(stepIndex++, 'completed');
+                addProgressStep('Uploading images to WordPress media library...', 'active');
+                
+                // Step 3: Generate/upload featured image
+                updateProgressStep(stepIndex++, 'completed');
+                addProgressStep('Generating and uploading featured image...', 'active');
+                
+                // Step 4: Create post
+                updateProgressStep(stepIndex++, 'completed');
+                addProgressStep('Creating WordPress post...', 'active');
+                
+                const response = await fetch('/publish-content', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        content: content,
+                        title: seoData ? seoData.title : 'SEO Content',
+                        seo_optimization: seoData
+                    })
+                });
+                
+                const result = await response.json();
+                
+                // Update final step
+                updateProgressStep(stepIndex++, 'completed');
+                
+                if (result.success) {
+                    // Show success modal
+                    setTimeout(() => {
+                        closeModal();
+                        let successMessage = 'Content saved as draft successfully! Check WordPress admin to review and publish.';
+                        
+                        // Check if there was a 413 warning
+                        if (result.warning && result.warning.includes('413')) {
+                            successMessage = 'Content saved successfully! (Note: Response was too large, but post was created. Please verify in WordPress admin.)';
+                        }
+                        
+                        showModal(
+                            'Success!',
+                            successMessage,
+                            'success'
+                        );
+                        
+                        const modalFooter = document.getElementById('modalFooter');
+                        modalFooter.innerHTML = '';
+                        if (result.post_url) {
+                            const viewBtn = document.createElement('button');
+                            viewBtn.className = 'btn-modal btn-modal-primary';
+                            viewBtn.textContent = 'View Post';
+                            viewBtn.onclick = () => {
+                                window.open(result.post_url, '_blank');
+                                closeModal();
+                            };
+                            modalFooter.appendChild(viewBtn);
+                        }
+                        const closeBtn = document.createElement('button');
+                        closeBtn.className = 'btn-modal btn-modal-secondary';
+                        closeBtn.textContent = 'Close';
+                        closeBtn.onclick = closeModal;
+                        modalFooter.appendChild(closeBtn);
+                    }, 500);
+                } else {
+                    updateProgressStep(stepIndex - 1, 'failed');
+                    setTimeout(() => {
+                        closeModal();
+                        let errorMessage = result.error || 'Unknown error occurred while publishing';
+                        
+                        // Handle 413 error specially
+                        if (errorMessage.includes('413')) {
+                            errorMessage = 'Post may have been created but response was too large. Please check WordPress admin to verify. If the post exists, you can ignore this error.';
+                            showModal(
+                                'Warning',
+                                errorMessage,
+                                'info'
+                            );
+                        } else {
+                            showModal(
+                                'Publishing Failed',
+                                errorMessage,
+                                'error'
+                            );
+                        }
+                    }, 500);
+                }
+                
+            } catch (error) {
+                updateProgressStep(stepIndex, 'failed');
+                setTimeout(() => {
+                    closeModal();
+                    showModal(
+                        'Error',
+                        'Error publishing content: ' + error.message,
+                        'error'
+                    );
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>
